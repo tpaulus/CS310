@@ -5,6 +5,7 @@
 package data_structures;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * TODO JavaDoc
@@ -116,8 +117,7 @@ public class ArrayLinearList<E> implements LinearListADT<E> {
 
     @Override
     public Iterator<E> iterator() {
-        // TODO
-        return null;
+        return new ALLIterator<>(array);
     }
 
     private E[] growArray(E[] org) {
@@ -132,5 +132,30 @@ public class ArrayLinearList<E> implements LinearListADT<E> {
         E[] newArr = (E[]) new Object[(int) Math.ceil(org.length / 2)];
         System.arraycopy(org, 0, newArr, 0, size());
         return newArr;
+    }
+
+    private class ALLIterator<T> implements Iterator<T> {
+        int index;
+        T[] array;
+
+        ALLIterator(T[] array) {
+            this.array = array;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return index < size();
+        }
+
+        @Override
+        public T next() {
+            if (!hasNext()) throw new NoSuchElementException();
+            return array[index++];
+        }
+
+        @Override
+        public void remove() {
+            throw new UnsupportedOperationException();
+        }
     }
 }
