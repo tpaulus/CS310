@@ -117,7 +117,7 @@ public class ArrayLinearList<E> implements LinearListADT<E> {
 
     @Override
     public Iterator<E> iterator() {
-        return new ALLIterator<>(array);
+        return new ALLIterator();
     }
 
     private E[] growArray(E[] org) {
