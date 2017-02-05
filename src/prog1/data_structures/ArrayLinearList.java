@@ -8,8 +8,8 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
- * TODO JavaDoc
- * TODO Add Messages to Runtime Exceptions
+ * This class, similar to the Built-in Array List,
+ * implements a Linear Lis t with the help of an array.
  *
  * @author Tom Paulus
  *         Created on 1/19/17.
@@ -26,7 +26,7 @@ public class ArrayLinearList<E> implements LinearListADT<E> {
 
     @Override
     public void addLast(E obj) {
-        insert(obj, size());
+        insert(obj, size() + 1);
     }
 
     @Override
@@ -36,24 +36,31 @@ public class ArrayLinearList<E> implements LinearListADT<E> {
 
     @Override
     public void insert(E obj, int location) throws RuntimeException {
-        if (location > size() + 1) throw new RuntimeException();
-        if (location == size()) array = growArray(array); // Double the array size as the current has been filled
-        // Move the elements down as necessary if the insert is not at the end.
-        if (!(location == size)) {
+        if (0 >= location || location > size() + 1)
+            throw new RuntimeException("Insert Location Out of Bounds");
+        if (size() >= array.length)
+            // Double the array size as the current has been filled
+            array = growArray(array);
+
+        if (location <= size()) {
             // The element is being inserted in between elements, we need to move things around
-            System.arraycopy(array, location, array, location + 1, size() - location);
+            System.arraycopy(array, location - 1,
+                    array, location, size() - (location - 1));
         }
-        array[location] = obj;
+        array[location - 1] = obj;
         size++;
     }
 
     @Override
     public E remove(int location) {
-        // Decrement Location
-        if (0 > location || location >= size()) throw new RuntimeException();
+        if (0 >= location || location > size())
+            throw new RuntimeException("Remove Location Out of Bounds");
         E element = array[location - 1];
-        // TODO Move elements to close the gap
-        if (((float) size()) / array.length < .25) array = shrinkArray(array); // Shrink the array since is is 25% full.
+        System.arraycopy(array, location - 1 + 1, array,
+                location - 1, size() - (location - 1));
+        if (((float) size()) / array.length < .25)
+            // Shrink the array since it is 25% full.
+            array = shrinkArray(array);
         size--;
         return element;
     }
@@ -66,6 +73,7 @@ public class ArrayLinearList<E> implements LinearListADT<E> {
             //noinspection unchecked
             return array[location];
         }
+
         return null;
     }
 
@@ -81,7 +89,7 @@ public class ArrayLinearList<E> implements LinearListADT<E> {
 
     @Override
     public E get(int location) throws RuntimeException {
-        if (location > size()) throw new RuntimeException();
+        if (location > size()) throw new RuntimeException("Index Out of Range");
         //noinspection unchecked
         return array[location - 1];
     }
@@ -138,7 +146,7 @@ public class ArrayLinearList<E> implements LinearListADT<E> {
         int index;
 
         ALLIterator() {
-            this.index = 1;
+            this.index = 0;
         }
 
         @Override
