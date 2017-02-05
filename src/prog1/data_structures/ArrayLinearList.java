@@ -134,21 +134,20 @@ public class ArrayLinearList<E> implements LinearListADT<E> {
         return newArr;
     }
 
-    private class ALLIterator<T> implements Iterator<T> {
+    private class ALLIterator implements Iterator<E> {
         int index;
-        T[] array;
 
-        ALLIterator(T[] array) {
-            this.array = array;
+        ALLIterator() {
+            this.index = 1;
         }
 
         @Override
         public boolean hasNext() {
-            return index < size();
+            return this.index < size();
         }
 
         @Override
-        public T next() {
+        public E next() {
             if (!hasNext()) throw new NoSuchElementException();
             return array[index++];
         }
