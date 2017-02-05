@@ -31,7 +31,22 @@ public class P1Tester {
         for (int i : list)
             System.out.println(i);
 
+        list.remove(new Integer(5));
+        list.remove(new Integer(10));
+        list.remove(3);
+
+        try {
+            list.remove(list.size() + 1);
+            System.out.println("Exception Not Thrown - BAD!");
+        } catch (RuntimeException e) {
+            System.out.println("Exception Thrown - This is Good!");
+        }
+
+        for (int i : list)
+            System.out.println(i);
+
         list.clear();
+
         for (int i : list) // should not print anything, nor crash
             System.out.println(i);
 
