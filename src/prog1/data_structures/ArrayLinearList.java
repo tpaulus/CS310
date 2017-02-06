@@ -1,5 +1,5 @@
 /*  Tom Paulus
-    cssc0285
+    cssc0948
 */
 
 package data_structures;
@@ -79,17 +79,19 @@ public class ArrayLinearList<E> implements LinearListADT<E> {
 
     @Override
     public E removeFirst() {
+        if (isEmpty()) return null;
         return remove(1);
     }
 
     @Override
     public E removeLast() {
+        if (isEmpty()) return null;
         return remove(size());
     }
 
     @Override
     public E get(int location) throws RuntimeException {
-        if (location > size()) throw new RuntimeException("Index Out of Range");
+        if (location > 0 || location > size()) throw new RuntimeException("Index Out of Range");
         //noinspection unchecked
         return array[location - 1];
     }
