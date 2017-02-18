@@ -27,7 +27,6 @@ public class LinearLinkedList<E extends Comparable<E>> implements LinearListADT<
      *
      * @param obj {@link E} Object to add
      */
-    @Override
     public void addLast(E obj) {
         Node<E> newNode = new Node<>(obj);
         if (isEmpty()) head = tail = newNode;
@@ -43,7 +42,6 @@ public class LinearLinkedList<E extends Comparable<E>> implements LinearListADT<
      *
      * @param obj {@link E} Object to add
      */
-    @Override
     public void addFirst(E obj) {
         Node<E> newNode = new Node<>(obj);
         newNode.next = head;
@@ -62,7 +60,6 @@ public class LinearLinkedList<E extends Comparable<E>> implements LinearListADT<
      * @param obj      {@link E} Object to add
      * @param location 1-based location to insert element
      */
-    @Override
     public void insert(E obj, int location) {
         if (location > size() + 1 || location < 1) throw new RuntimeException("Invalid Index");
         if (location == 1) addFirst(obj);
@@ -90,7 +87,6 @@ public class LinearLinkedList<E extends Comparable<E>> implements LinearListADT<
      * @param location 1-based location from where to remove the element.
      * @return Removed Element
      */
-    @Override
     public E remove(int location) {
         if (size() == 0) throw new RuntimeException("Empty List");
         if (location > size() + 1 || location < 1) throw new RuntimeException("Invalid Index");
@@ -122,7 +118,6 @@ public class LinearLinkedList<E extends Comparable<E>> implements LinearListADT<
      * @param obj {@link E} Object to remove
      * @return Removed Element
      */
-    @Override
     public E remove(E obj) {
         if (size() == 0) return null;
 
@@ -151,7 +146,6 @@ public class LinearLinkedList<E extends Comparable<E>> implements LinearListADT<
      *
      * @return Removed Element
      */
-    @Override
     public E removeFirst() {
         if (size() == 0) return null;
         E obj = head.data;
@@ -166,7 +160,6 @@ public class LinearLinkedList<E extends Comparable<E>> implements LinearListADT<
      *
      * @return Removed Element
      */
-    @Override
     public E removeLast() {
         if (size() == 0) return null;
 
@@ -187,7 +180,6 @@ public class LinearLinkedList<E extends Comparable<E>> implements LinearListADT<
      * @param location 1-based location of element to retrieve
      * @return Element at specified location
      */
-    @Override
     public E get(int location) {
         if (size() == 0) throw new RuntimeException("Empty List");
         if (location > size() || location < 1) throw new RuntimeException("Invalid Index");
@@ -210,7 +202,6 @@ public class LinearLinkedList<E extends Comparable<E>> implements LinearListADT<
      * @param obj {@link E} Object to check for containment
      * @return If obj is in list
      */
-    @Override
     public boolean contains(E obj) {
         return locate(obj) != -1;
     }
@@ -222,7 +213,6 @@ public class LinearLinkedList<E extends Comparable<E>> implements LinearListADT<
      * @param obj {@link E} Object to locate
      * @return 1-based location in the list
      */
-    @Override
     public int locate(E obj) {
         Node<E> node = head;
         for (int i = 0; i < size(); i++) {
@@ -238,7 +228,6 @@ public class LinearLinkedList<E extends Comparable<E>> implements LinearListADT<
     /**
      * The list is returned to an empty state.
      */
-    @Override
     public void clear() {
         head = tail = null;
         size = 0;
@@ -247,7 +236,6 @@ public class LinearLinkedList<E extends Comparable<E>> implements LinearListADT<
     /**
      * Returns true if the list is empty, otherwise false
      */
-    @Override
     public boolean isEmpty() {
         return size() == 0;
     }
@@ -255,7 +243,6 @@ public class LinearLinkedList<E extends Comparable<E>> implements LinearListADT<
     /**
      * Returns the number of Objects currently in the list.
      */
-    @Override
     public int size() {
         return size;
     }
@@ -264,7 +251,6 @@ public class LinearLinkedList<E extends Comparable<E>> implements LinearListADT<
      * Returns an Iterator of the values in the list, presented in
      * the same order as the underlying order of the list. (position #1 first)
      */
-    @Override
     public Iterator<E> iterator() {
         return new Iterator<E>() {
             int index = 0;
