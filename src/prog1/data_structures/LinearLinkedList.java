@@ -1,9 +1,13 @@
+/*  Tom Paulus
+    cssc0948
+*/
+
 package data_structures;
 
 import java.util.Iterator;
 
 /**
- * TODO JavaDoc
+ * A Linear List backed by a Singly Linked List.
  *
  * @author Tom Paulus
  *         Created on 2/18/17.
@@ -21,7 +25,7 @@ public class LinearLinkedList<E extends Comparable<E>> implements LinearListADT<
     /**
      * Adds the Object obj to the end of list.
      *
-     * @param obj
+     * @param obj {@link E} Object to add
      */
     @Override
     public void addLast(E obj) {
@@ -37,7 +41,7 @@ public class LinearLinkedList<E extends Comparable<E>> implements LinearListADT<
     /**
      * Adds the Object obj to the beginning of list.
      *
-     * @param obj
+     * @param obj {@link E} Object to add
      */
     @Override
     public void addFirst(E obj) {
@@ -55,8 +59,8 @@ public class LinearLinkedList<E extends Comparable<E>> implements LinearListADT<
      * If the location > size()+1 then a RuntimeException is thrown. List elements
      * must be contiguous.
      *
-     * @param obj
-     * @param location
+     * @param obj      {@link E} Object to add
+     * @param location 1-based location to insert element
      */
     @Override
     public void insert(E obj, int location) {
@@ -83,7 +87,8 @@ public class LinearLinkedList<E extends Comparable<E>> implements LinearListADT<
      * Removes the object located at the parameter location (one based).
      * Throws a RuntimeException if the location does not map to a valid position within the list.
      *
-     * @param location
+     * @param location 1-based location from where to remove the element.
+     * @return Removed Element
      */
     @Override
     public E remove(int location) {
@@ -114,7 +119,8 @@ public class LinearLinkedList<E extends Comparable<E>> implements LinearListADT<
      * The ordering of the list is preserved.  The list may contain duplicate elements.  This method
      * removes and returns the first matching element found when traversing the list from first position.
      *
-     * @param obj
+     * @param obj {@link E} Object to remove
+     * @return Removed Element
      */
     @Override
     public E remove(E obj) {
@@ -142,6 +148,8 @@ public class LinearLinkedList<E extends Comparable<E>> implements LinearListADT<
     /**
      * Removes and returns the parameter object obj in first position in list if the list is not empty,
      * null if the list is empty. The ordering of the list is preserved.
+     *
+     * @return Removed Element
      */
     @Override
     public E removeFirst() {
@@ -155,6 +163,8 @@ public class LinearLinkedList<E extends Comparable<E>> implements LinearListADT<
     /**
      * Removes and returns the parameter object obj in last position in list if the list is not empty,
      * null if the list is empty. The ordering of the list is preserved.
+     *
+     * @return Removed Element
      */
     @Override
     public E removeLast() {
@@ -174,7 +184,8 @@ public class LinearLinkedList<E extends Comparable<E>> implements LinearListADT<
      * Returns the parameter object located at the parameter location position (one based).
      * Throws a RuntimeException if the location does not map to a valid position within the list.
      *
-     * @param location
+     * @param location 1-based location of element to retrieve
+     * @return Element at specified location
      */
     @Override
     public E get(int location) {
@@ -196,7 +207,8 @@ public class LinearLinkedList<E extends Comparable<E>> implements LinearListADT<
     /**
      * Returns true if the parameter object obj is in the list, false otherwise.
      *
-     * @param obj
+     * @param obj {@link E} Object to check for containment
+     * @return If obj is in list
      */
     @Override
     public boolean contains(E obj) {
@@ -207,7 +219,8 @@ public class LinearLinkedList<E extends Comparable<E>> implements LinearListADT<
      * Returns the one based location of the parameter object obj if it is in the list, -1 otherwise.
      * In the case of duplicates, this method returns the element closest to position #1.
      *
-     * @param obj
+     * @param obj {@link E} Object to locate
+     * @return 1-based location in the list
      */
     @Override
     public int locate(E obj) {
