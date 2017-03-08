@@ -253,7 +253,6 @@ public class LinearLinkedList<E extends Comparable<E>> implements LinearListADT<
      */
     public Iterator<E> iterator() {
         return new Iterator<E>() {
-            int index = 0;
             Node<E> node = head;
 
             public boolean hasNext() {
@@ -281,3 +280,4 @@ public class LinearLinkedList<E extends Comparable<E>> implements LinearListADT<
         }
     }
 }
+

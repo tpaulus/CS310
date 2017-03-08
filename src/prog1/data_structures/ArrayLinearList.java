@@ -69,9 +69,8 @@ public class ArrayLinearList<E> implements LinearListADT<E> {
     public E remove(E obj) {
         int location = locate(obj);
         if (location > 0) {
-            remove(location - 1);
             //noinspection unchecked
-            return array[location];
+            return remove(location - 1);
         }
 
         return null;
