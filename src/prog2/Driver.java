@@ -17,17 +17,18 @@ public class Driver {
         array = new int[SIZE];
 //        pq = new OrderedArrayPriorityQueue<Integer>(SIZE);
         //pq = new UnorderedArrayPriorityQueue<Integer>(SIZE);
-        //pq = new OrderedListPriorityQueue<Integer>();
-        pq = new UnorderedListPriorityQueue<Integer>();
+        pq = new OrderedListPriorityQueue<Integer>();
+//        pq = new UnorderedListPriorityQueue<Integer>();
 //        pq2 = new OrderedArrayPriorityQueue<PrioritizedItem>(SIZE);
         //pq2 = new UnorderedArrayPriorityQueue<PrioritizedItem>(SIZE);
-        //pq2 = new OrderedListPriorityQueue<PrioritizedItem>();
-        pq2 = new UnorderedListPriorityQueue<PrioritizedItem>();
+        pq2 = new OrderedListPriorityQueue<PrioritizedItem>();
+//        pq2 = new UnorderedListPriorityQueue<PrioritizedItem>();
         initArray();
         test1();
         test2();
         test3();
         test4();
+        test5();
     }
 
     public static void main(String[] args) {
@@ -56,11 +57,11 @@ public class Driver {
                 throw new RuntimeException("Failed test #1");
 //////////////////////////////////////////////////////////////////////////////
 //  Comment this block for linked list based implementations
-        if (!pq.isFull())
-            throw new RuntimeException("Failed test #1, isFull reports false, but pq should be full");
-        //try to exceed the capacity
-        if (pq.insert(0))
-            throw new RuntimeException("Failed test1, exceeded capacity");
+//        if (!pq.isFull())
+//            throw new RuntimeException("Failed test #1, isFull reports false, but pq should be full");
+//        //try to exceed the capacity
+//        if (pq.insert(0))
+//            throw new RuntimeException("Failed test1, exceeded capacity");
 //////////////////////////////////////////////////////////////////////////////
         System.out.println("Passed test #1, simple insert");
     }
@@ -136,6 +137,17 @@ public class Driver {
 
         if (pq2.size() != 0)
             System.out.println("Failed test #4, size is wrong.");
+    }
+
+    private void test5() {
+        pq.clear();
+        for (int i = 0; i < SIZE; i++)
+            pq.insert(i + 1);
+
+        if (!pq.contains(SIZE))
+            System.out.println("FAIL: Contains returned FALSE for an item within the list");
+        if (pq.contains(SIZE+10))
+            System.out.println("FAIL: Contains returned TRUE for an item NOT within the list");
     }
     ///////////////////////////////////////////////////////////////////////
 
