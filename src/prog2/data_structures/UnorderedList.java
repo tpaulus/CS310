@@ -92,30 +92,33 @@ public class UnorderedList<E extends Comparable<E>> implements Iterable<E> {
      * @return {@link E} Removed Item
      */
     public E remove(E obj) {
-        if (isEmpty()) return null;
+        Node<E> previous = null;
+        Node<E> current = head;
 
-        if (head.data.compareTo(obj) == 0) {
-            E value = head.data;
+        // Find the deletion node
+        while (current != null && current.data.compareTo(obj) != 0) {
+            previous = current;
+            current = current.next;
+        }
+
+        if (current == null) return null; // Node was not found
+        if (current == head) {
+            // Node is at the beginning of the LL
             head = head.next;
-            size--;
-            modificationCount++;
-            return value;
+        } else if (current == tail && previous != null) {
+            // Node is at the end of the LL
+            previous.next = null;
+            tail = previous;
+        } else if (previous != null) {
+            // Node is in the middle of our list
+            previous.next = current.next;
         }
+        if (head == null)
+            tail = null;
 
-        Node<E> previous = head;
-        while (previous.next != null && previous.next.data.compareTo(obj) != 0)
-            previous = previous.next;
-
-        if (previous.next != null && previous.next.data.compareTo(obj) == 0) {
-            // This would be false if our step loop ended because it was at the end of the list
-            E value = previous.next.data;
-            previous.next = previous.next.next;
-            size--;
-            modificationCount++;
-            return value;
-        }
-
-        return null;
+        size--;
+        modificationCount++;
+        return current.data;
     }
 
     /**
