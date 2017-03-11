@@ -17,9 +17,6 @@
 import data_structures.*;
 
 public class Timer {
-    public static void main(String [] args) {
-        new Timer();
-    }
     public Timer() {
         int iterations = 20;  // number of timing tests
         int workSize = 10000;   // size of add/remove cycle loop
@@ -31,32 +28,35 @@ public class Timer {
         long start = 0, stop = 0;
 
 
-        PriorityQueue<Integer> pq =
-                new OrderedArrayPriorityQueue<Integer>(512000);
-        //new UnorderedArrayPriorityQueue<Integer>(512000);
-        //new OrderedListPriorityQueue<Integer>();
-        //new UnorderedListPriorityQueue<Integer>();
+//        PriorityQueue<Integer> pq = new OrderedArrayPriorityQueue<Integer>(512000);
+//        PriorityQueue<Integer> pq = new UnorderedArrayPriorityQueue<Integer>(512000);
+//        PriorityQueue<Integer> pq = new OrderedListPriorityQueue<Integer>();
+        PriorityQueue<Integer> pq = new UnorderedListPriorityQueue<Integer>();
 
 
-        for(int i=0; i < iterations; i++) {
+        for (int i = 0; i < iterations; i++) {
             // build structure first
 
-            for(int j=0; j < increment; j++) {
+            for (int j = 0; j < increment; j++) {
                 int x = (int) (Integer.MAX_VALUE * Math.random());
                 pq.insert(x);
             }
 
             // time for add/remove cycles
             start = System.currentTimeMillis();
-            for(int j=0; j < workSize; j++) {
+            for (int j = 0; j < workSize; j++) {
                 int x = (int) (Integer.MAX_VALUE * Math.random());
                 pq.insert(x);
                 pq.remove();
             }
             stop = System.currentTimeMillis();
-            System.out.println("n=" + pq.size() + "  Time: " + (stop-start));
+            System.out.println("n=" + pq.size() + "  Time: " + (stop - start));
 
             structureSize += increment;
         }
+    }
+
+    public static void main(String[] args) {
+        new Timer();
     }
 }
