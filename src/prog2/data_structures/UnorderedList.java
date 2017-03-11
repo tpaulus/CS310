@@ -1,5 +1,10 @@
+/*  Tom Paulus
+    cssc0948
+*/
+
 package data_structures;
 
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 
 /**
@@ -8,10 +13,12 @@ import java.util.Iterator;
  * @author Tom Paulus
  *         Created on 2/15/17.
  */
-public class UnorderedList<E extends Comparable<E>> {
+public class UnorderedList<E extends Comparable<E>> implements Iterable<E> {
     private Node<E> head;
     private Node<E> tail;
     private int size;
+
+    private long modificationCount = 0;
 
     public UnorderedList() {
         size = 0;
@@ -29,6 +36,7 @@ public class UnorderedList<E extends Comparable<E>> {
         head = newNode;
         if (isEmpty()) tail = newNode;
         size++;
+        modificationCount++;
     }
 
     /**
@@ -38,9 +46,14 @@ public class UnorderedList<E extends Comparable<E>> {
      */
     public void addLast(E obj) {
         Node<E> newNode = new Node<>(obj);
-        tail.next = newNode;
-        tail = newNode;
+        if (isEmpty()) head = tail = newNode;
+        else {
+            tail.next = newNode;
+            tail = newNode;
+        }
+
         size++;
+        modificationCount++;
     }
 
     /**
@@ -51,7 +64,8 @@ public class UnorderedList<E extends Comparable<E>> {
     public E removeFirst() {
         E value = head.data;
         head = head.next;
-        size --;
+        size--;
+        modificationCount++;
         return value;
     }
 
@@ -66,7 +80,8 @@ public class UnorderedList<E extends Comparable<E>> {
             secondLast = secondLast.next;
         E value = secondLast.next.data;
         secondLast.next = null;
-        size --;
+        size--;
+        modificationCount++;
         return value;
     }
 
@@ -77,15 +92,26 @@ public class UnorderedList<E extends Comparable<E>> {
      * @return {@link E} Removed Item
      */
     public E remove(E obj) {
-        Node<E> previous = head;
+        if (isEmpty()) return null;
 
-        while (previous.next.next != null && previous.next.data.compareTo(obj) != 0)
+        if (head.data.compareTo(obj) == 0) {
+            E value = head.data;
+            head = head.next;
+            size--;
+            modificationCount++;
+            return value;
+        }
+
+        Node<E> previous = head;
+        while (previous.next != null && previous.next.data.compareTo(obj) != 0)
             previous = previous.next;
 
-        E value = previous.next.data;
-        if (value.compareTo(obj) == 0) {
+        if (previous.next != null && previous.next.data.compareTo(obj) == 0) {
+            // This would be false if our step loop ended because it was at the end of the list
+            E value = previous.next.data;
             previous.next = previous.next.next;
             size--;
+            modificationCount++;
             return value;
         }
 
@@ -114,6 +140,13 @@ public class UnorderedList<E extends Comparable<E>> {
         return size() == 0;
     }
 
+    public void clear() {
+        size = 0;
+        head = tail = null;
+        modificationCount++;
+    }
+
+
     /**
      * Returns an Iterator of the values in the list, presented in
      * the same order as the underlying order of the list. (position #1 first)
@@ -121,8 +154,12 @@ public class UnorderedList<E extends Comparable<E>> {
     public Iterator<E> iterator() {
         return new Iterator<E>() {
             Node<E> node = head;
+            long modCount = modificationCount;
 
             public boolean hasNext() {
+                if (modCount != modificationCount) throw new ConcurrentModificationException(
+                        "Structure Modified after Iterator Creation"
+                );
                 return node != null;
             }
 
