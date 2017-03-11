@@ -130,7 +130,7 @@ public class Driver {
         for (PrioritizedItem item : pq2)
             System.out.println(item);
 
-        System.out.println("/nNow removing items, they should be in proper order.");
+        System.out.println("\nNow removing items, they should be in proper order.");
         while (!pq2.isEmpty())
             System.out.println(pq2.remove());
 
