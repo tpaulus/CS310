@@ -29,7 +29,7 @@ public class OrderedArrayPriorityQueue<E extends Comparable<E>> implements Prior
     public OrderedArrayPriorityQueue(int size) {
         //noinspection unchecked
         this.array = (E[]) new Comparable[size];
-        this.size = size;
+        this.size = 0;
         modificationCount = 0;
     }
 
@@ -44,7 +44,9 @@ public class OrderedArrayPriorityQueue<E extends Comparable<E>> implements Prior
         if (isFull())
             return false;
 
-        int insertionPoint = findInsertionPoint(obj, 0, size - 1);
+        int insertionPoint = 0;
+        if (!isEmpty())
+            insertionPoint = findInsertionPoint(obj, 0, size - 1);
         System.arraycopy(array, insertionPoint, array, insertionPoint + 1, size() - insertionPoint);
         array[insertionPoint] = obj;
         size++;
@@ -149,8 +151,8 @@ public class OrderedArrayPriorityQueue<E extends Comparable<E>> implements Prior
             return low;
 
         int mid = (low + high) >> 1;
-        if (obj.compareTo(array[mid]) >= 0) // Bin Search Left
-            return findInsertionPoint(obj, low, mid - 1);
+        if (obj.compareTo(array[mid]) >= 0)
+            return findInsertionPoint(obj, low, mid - 1); // Bin Search Left
         return findInsertionPoint(obj, mid + 1, high); // Bin Search Right
     }
 
