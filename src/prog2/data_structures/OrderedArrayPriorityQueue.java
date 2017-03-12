@@ -9,7 +9,9 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
- * TODO JavaDoc
+ * An Array Based Priority Queue.
+ * In this implementation, the Array which stores the entries is sorted, and the element is stored
+ * at the correct location at insertion.
  *
  * @author Tom Paulus
  *         Created on 2/13/17.
@@ -36,7 +38,7 @@ public class OrderedArrayPriorityQueue<E extends Comparable<E>> implements Prior
      * the insertion is successful.  If the PQ is full, the insertion
      * is aborted, and the method returns false.
      *
-     * @param obj
+     * @param obj Element to insert
      */
     public boolean insert(E obj) {
         if (isFull())
@@ -52,7 +54,7 @@ public class OrderedArrayPriorityQueue<E extends Comparable<E>> implements Prior
 
     /**
      * Removes the object of highest priority that has been in the
-     * PQ the longest, and returns it.  Returns null if the PQ is empty.
+     * PQ the longest, and returns it. Returns null if the PQ is empty.
      */
     public E remove() {
         if (isEmpty())
@@ -76,7 +78,7 @@ public class OrderedArrayPriorityQueue<E extends Comparable<E>> implements Prior
      * Returns true if the priority queue contains the specified element
      * false otherwise.
      *
-     * @param obj
+     * @param obj Element to look for
      */
     public boolean contains(E obj) {
         return find(obj, 0, size() - 1) != null;
@@ -105,7 +107,7 @@ public class OrderedArrayPriorityQueue<E extends Comparable<E>> implements Prior
     }
 
     /**
-     * Returns true if the PQ is full, otherwise false.  List based
+     * Returns true if the PQ is full, otherwise false. List based
      * implementations should always return false.
      */
     public boolean isFull() {
@@ -114,7 +116,10 @@ public class OrderedArrayPriorityQueue<E extends Comparable<E>> implements Prior
 
     /**
      * Returns an iterator of the objects in the PQ, in no particular
-     * order.  The iterator must be fail-fast.
+     * order.  The iterator is fail-fast, and will throw a ConcurrentModificationException
+     * if the underlying array is modified after the iterator has been constructed.
+     *
+     * @throws ConcurrentModificationException Structure modified after iterator construction
      */
     public Iterator<E> iterator() {
         return new Iterator<E>() {

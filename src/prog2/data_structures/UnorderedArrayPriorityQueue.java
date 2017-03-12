@@ -10,7 +10,9 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
- * TODO JavaDoc
+ * An Array Based Priority Queue.
+ * In this implementation, the Array which stores the entries is unsorted, and the correct element
+ * is found at retrieval time (remove/peek).
  *
  * @author Tom Paulus
  *         Created on 3/11/17.
@@ -52,6 +54,8 @@ public class UnorderedArrayPriorityQueue<E extends Comparable<E>> implements Pri
     /**
      * Removes the object of highest priority that has been in the
      * PQ the longest, and returns it.  Returns null if the PQ is empty.
+     *
+     * @return Highest Priority Element in the queue
      */
     public E remove() {
         if (isEmpty())
@@ -78,6 +82,8 @@ public class UnorderedArrayPriorityQueue<E extends Comparable<E>> implements Pri
      * Returns the object of highest priority that has been in the
      * PQ the longest, but does NOT remove it.
      * Returns null if the PQ is empty.
+     *
+     * @return Highest priority element in the queue
      */
     public E peek() {
         if (isEmpty())
@@ -99,7 +105,7 @@ public class UnorderedArrayPriorityQueue<E extends Comparable<E>> implements Pri
      * Returns true if the priority queue contains the specified element
      * false otherwise.
      *
-     * @param obj
+     * @param obj Element to locate
      */
     public boolean contains(E obj) {
         for (int i = 0; i < size(); i++) {
@@ -142,7 +148,10 @@ public class UnorderedArrayPriorityQueue<E extends Comparable<E>> implements Pri
 
     /**
      * Returns an iterator of the objects in the PQ, in no particular
-     * order.  The iterator must be fail-fast.
+     * order.  The iterator is fail-fast, and will throw a ConcurrentModificationException
+     * if the underlying array is modified after the iterator has been constructed.
+     *
+     * @throws ConcurrentModificationException Structure modified after iterator construction
      */
     public Iterator<E> iterator() {
         return new Iterator<E>() {

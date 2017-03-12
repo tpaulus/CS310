@@ -86,6 +86,50 @@ public class UnorderedList<E extends Comparable<E>> implements Iterable<E> {
     }
 
     /**
+     * Remove the "first" element from the list. First is determined by the Comparable Interface,
+     * when compared with the other elements in the structure.
+     *
+     * @return "First" Element
+     */
+    public E remove() {
+        Node<E> beforeHighest = null;
+        Node<E> highest = head;
+
+        Node<E> previous = null;
+        Node<E> current = head;
+        // Find the deletion node
+        while (current != null) {
+            if (highest.data.compareTo(current.data) > 0) {
+                beforeHighest = previous;
+                highest = current;
+            }
+
+            previous = current;
+            current = current.next;
+        }
+
+        if (highest == null) return null; // Node was not found
+        if (highest == head) {
+            // Node is at the beginning of the LL
+            head = head.next;
+        } else if (highest == tail && beforeHighest != null) {
+            // Node is at the end of the LL
+            beforeHighest.next = null;
+            tail = beforeHighest;
+        } else if (beforeHighest != null) {
+            // Node is in the middle of our list
+            beforeHighest.next = highest.next;
+        }
+        if (head == null)
+            tail = null;
+
+        size--;
+        modificationCount++;
+        return highest.data;
+    }
+
+
+    /**
      * Removes the specified element from the list
      *
      * @param obj {@link E} Element to Remove

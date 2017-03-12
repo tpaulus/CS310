@@ -8,7 +8,7 @@ import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 
 /**
- * TODO JavaDoc
+ * Ordered Singly-Linked List.
  *
  * @author Tom Paulus
  *         Created on 3/11/17.
@@ -24,6 +24,12 @@ public class OrderedList<E extends Comparable<E>> implements Iterable<E> {
         head = null;
     }
 
+    /**
+     * Insert an element into the List. The element's position in the structure is determined by
+     * its Comparable interface relative to the other elements in the list.
+     *
+     * @param obj Element to Insert
+     */
     public void add(E obj) {
         Node<E> newNode = new Node<>(obj);
         Node<E> previous = null;
@@ -48,6 +54,11 @@ public class OrderedList<E extends Comparable<E>> implements Iterable<E> {
         modificationCount++;
     }
 
+    /**
+     * Remove the element with the next element from the list. Sorted Order.
+     *
+     * @return Top Element in the list
+     */
     public E remove() {
         if (head == null) return null;
 
@@ -58,6 +69,11 @@ public class OrderedList<E extends Comparable<E>> implements Iterable<E> {
         return data;
     }
 
+    /**
+     * Check if an element is contained within the list
+     *
+     * @param obj Element to look for
+     */
     public E find(E obj) {
         Node<E> node = head;
         while (node.next != null && node.data.compareTo(obj) < 0)

@@ -8,24 +8,26 @@ package data_structures;
 import java.util.Iterator;
 
 /**
- * TODO JavaDoc
+ * An Linked-List Based Priority Queue.
+ * In this implementation, the Linked-List which stores the entries is sorted, and the element is
+ * stored in the correct order, in relation to its peers, at insertion.
  *
  * @author Tom Paulus
  *         Created on 3/11/17.
  */
 public class OrderedListPriorityQueue<E extends Comparable<E>> implements PriorityQueue<E> {
-    OrderedList<E> pq = new OrderedList<>();
+    private OrderedList<E> pq = new OrderedList<>();
 
     /**
      * Inserts a new object into the priority queue.  Returns true if
      * the insertion is successful.  If the PQ is full, the insertion
      * is aborted, and the method returns false.
      *
-     * @param object
+     * @param obj Element to insert
      */
-    public boolean insert(E object) {
+    public boolean insert(E obj) {
         if (isFull()) return false;
-        pq.add(object);
+        pq.add(obj);
         return true;
     }
 
@@ -43,7 +45,7 @@ public class OrderedListPriorityQueue<E extends Comparable<E>> implements Priori
      * Returns null if the PQ is empty.
      */
     public E peek() {
-        for (E obj: pq) {
+        for (E obj : pq) {
             return obj;
         }
         return null;
@@ -53,7 +55,7 @@ public class OrderedListPriorityQueue<E extends Comparable<E>> implements Priori
      * Returns true if the priority queue contains the specified element
      * false otherwise.
      *
-     * @param obj
+     * @param obj Element to look for
      */
     public boolean contains(E obj) {
         return pq.find(obj) != null;
@@ -90,7 +92,8 @@ public class OrderedListPriorityQueue<E extends Comparable<E>> implements Priori
 
     /**
      * Returns an iterator of the objects in the PQ, in no particular
-     * order.  The iterator must be fail-fast.
+     * order. The iterator is fail-fast, and will throw a ConcurrentModificationException
+     * if the underlying data is modified after the iterator has been constructed.
      */
     public Iterator<E> iterator() {
         return pq.iterator();
