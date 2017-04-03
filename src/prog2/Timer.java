@@ -30,10 +30,10 @@ public class Timer {
 
 //        PriorityQueue<Integer> pq = new OrderedArrayPriorityQueue<Integer>(512000);
 //        PriorityQueue<Integer> pq = new UnorderedArrayPriorityQueue<Integer>(512000);
-//        PriorityQueue<Integer> pq = new OrderedListPriorityQueue<Integer>();
-        PriorityQueue<Integer> pq = new UnorderedListPriorityQueue<Integer>();
+        PriorityQueue<Integer> pq = new OrderedListPriorityQueue<Integer>();
+//        PriorityQueue<Integer> pq = new UnorderedListPriorityQueue<Integer>();
 
-
+        System.out.println("n\ttime");
         for (int i = 0; i < iterations; i++) {
             // build structure first
 
@@ -50,7 +50,7 @@ public class Timer {
                 pq.remove();
             }
             stop = System.currentTimeMillis();
-            System.out.println("n=" + pq.size() + "  Time: " + (stop - start));
+            System.out.println(pq.size() + "\t" + (stop - start));
 
             structureSize += increment;
         }
