@@ -6,15 +6,18 @@ import java.util.Iterator;
  * @author Tom Paulus
  *         Created on 4/24/17.
  */
-public class HashTable<K,V> implements DictionaryADT {
-    private final int maxSize;
+public class HashTable<K extends Comparable<K>,V> implements DictionaryADT<K, V> {
+    private static final int DEFAULT_SIZE = 1000;
+    private UnorderedList<DictionaryNode<K, V>>[] list;
 
-    public HashTable() {
-        this.maxSize = 1000; // Default Size
-    }
+    private int modCounter = 0;
+    private int size = 0;
 
-    public HashTable(int maxSize) {
-        this.maxSize = maxSize;
+    public HashTable(int size) {
+        //noinspection unchecked
+        list = new UnorderedList[size];
+        for (int i = 0; i < list.length; i++)
+            list[i] = new UnorderedList<>();
     }
 
     /**
@@ -23,7 +26,7 @@ public class HashTable<K,V> implements DictionaryADT {
      *
      * @param key
      */
-    public boolean contains(Comparable key) {
+    public boolean contains(K key) {
         return false;
     }
 
@@ -35,8 +38,8 @@ public class HashTable<K,V> implements DictionaryADT {
      * @param key
      * @param value
      */
-    public boolean add(Comparable key, Object value) {
         return false;
+    public boolean add(K key, V value) {
     }
 
     /**
@@ -46,7 +49,7 @@ public class HashTable<K,V> implements DictionaryADT {
      *
      * @param key
      */
-    public boolean delete(Comparable key) {
+    public boolean delete(K key) {
         return false;
     }
 
@@ -56,7 +59,7 @@ public class HashTable<K,V> implements DictionaryADT {
      *
      * @param key
      */
-    public Object getValue(Comparable key) {
+    public V getValue(K key) {
         return null;
     }
 
@@ -68,7 +71,7 @@ public class HashTable<K,V> implements DictionaryADT {
      *
      * @param value
      */
-    public Comparable getKey(Object value) {
+    public K getKey(V value) {
         return null;
     }
 
@@ -105,7 +108,7 @@ public class HashTable<K,V> implements DictionaryADT {
      * Returns an Iterator of the keys in the dictionary, in ascending
      * sorted order. The iterator must be fail-fast.
      */
-    public Iterator keys() {
+    public Iterator<K> keys() {
         return null;
     }
 
@@ -114,7 +117,7 @@ public class HashTable<K,V> implements DictionaryADT {
      * order of the values must match the order of the keys.
      * The iterator must be fail-fast.
      */
-    public Iterator values() {
+    public Iterator<V> values() {
         return null;
     }
 }

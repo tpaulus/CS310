@@ -6,7 +6,7 @@ import java.util.Iterator;
  * @author Tom Paulus
  *         Created on 4/24/17.
  */
-public class OrderedArrayDictionary<K,V> implements DictionaryADT {
+public class OrderedArrayDictionary<K extends Comparable<K>,V> implements DictionaryADT<K, V> {
     private final int maxSize;
 
     public OrderedArrayDictionary() {
@@ -17,14 +17,13 @@ public class OrderedArrayDictionary<K,V> implements DictionaryADT {
         this.maxSize = size;
     }
 
-
     /**
      * Returns true if the dictionary has an object identified by
      * key in it, otherwise false.
      *
      * @param key
      */
-    public boolean contains(Comparable key) {
+    public boolean contains(K key) {
         return false;
     }
 
@@ -36,7 +35,7 @@ public class OrderedArrayDictionary<K,V> implements DictionaryADT {
      * @param key
      * @param value
      */
-    public boolean add(Comparable key, Object value) {
+    public boolean add(K key, V value) {
         return false;
     }
 
@@ -47,7 +46,7 @@ public class OrderedArrayDictionary<K,V> implements DictionaryADT {
      *
      * @param key
      */
-    public boolean delete(Comparable key) {
+    public boolean delete(K key) {
         return false;
     }
 
@@ -57,7 +56,7 @@ public class OrderedArrayDictionary<K,V> implements DictionaryADT {
      *
      * @param key
      */
-    public Object getValue(Comparable key) {
+    public V getValue(K key) {
         return null;
     }
 
@@ -69,7 +68,7 @@ public class OrderedArrayDictionary<K,V> implements DictionaryADT {
      *
      * @param value
      */
-    public Comparable getKey(Object value) {
+    public K getKey(V value) {
         return null;
     }
 
@@ -106,7 +105,7 @@ public class OrderedArrayDictionary<K,V> implements DictionaryADT {
      * Returns an Iterator of the keys in the dictionary, in ascending
      * sorted order. The iterator must be fail-fast.
      */
-    public Iterator keys() {
+    public Iterator<K> keys() {
         return null;
     }
 
@@ -115,7 +114,7 @@ public class OrderedArrayDictionary<K,V> implements DictionaryADT {
      * order of the values must match the order of the keys.
      * The iterator must be fail-fast.
      */
-    public Iterator values() {
+    public Iterator<V> values() {
         return null;
     }
 }

@@ -6,15 +6,14 @@ import java.util.Iterator;
  * @author Tom Paulus
  *         Created on 4/24/17.
  */
-public class BinarySearchTree<K, V> implements DictionaryADT {
+public class BinarySearchTree<K extends Comparable<K>, V> implements DictionaryADT<K, V> {
     /**
      * Returns true if the dictionary has an object identified by
      * key in it, otherwise false.
      *
      * @param key
      */
-    public boolean contains(Comparable key) {
-        // TODO
+    public boolean contains(K key) {
         return false;
     }
 
@@ -26,8 +25,7 @@ public class BinarySearchTree<K, V> implements DictionaryADT {
      * @param key
      * @param value
      */
-    public boolean add(Comparable key, Object value) {
-        // TODO
+    public boolean add(K key, V value) {
         return false;
     }
 
@@ -38,8 +36,7 @@ public class BinarySearchTree<K, V> implements DictionaryADT {
      *
      * @param key
      */
-    public boolean delete(Comparable key) {
-        // TODO
+    public boolean delete(K key) {
         return false;
     }
 
@@ -49,8 +46,7 @@ public class BinarySearchTree<K, V> implements DictionaryADT {
      *
      * @param key
      */
-    public Object getValue(Comparable key) {
-        // TODO
+    public V getValue(K key) {
         return null;
     }
 
@@ -62,8 +58,7 @@ public class BinarySearchTree<K, V> implements DictionaryADT {
      *
      * @param value
      */
-    public Comparable getKey(Object value) {
-        // TODO
+    public K getKey(V value) {
         return null;
     }
 
@@ -72,7 +67,6 @@ public class BinarySearchTree<K, V> implements DictionaryADT {
      * in the dictionary
      */
     public int size() {
-        // TODO
         return 0;
     }
 
@@ -80,7 +74,6 @@ public class BinarySearchTree<K, V> implements DictionaryADT {
      * Returns true if the dictionary is at max capacity
      */
     public boolean isFull() {
-        // TODO
         return false;
     }
 
@@ -88,7 +81,6 @@ public class BinarySearchTree<K, V> implements DictionaryADT {
      * Returns true if the dictionary is empty
      */
     public boolean isEmpty() {
-        // TODO
         return false;
     }
 
@@ -96,7 +88,6 @@ public class BinarySearchTree<K, V> implements DictionaryADT {
      * Returns the Dictionary object to an empty state.
      */
     public void clear() {
-        // TODO
 
     }
 
@@ -104,8 +95,7 @@ public class BinarySearchTree<K, V> implements DictionaryADT {
      * Returns an Iterator of the keys in the dictionary, in ascending
      * sorted order. The iterator must be fail-fast.
      */
-    public Iterator keys() {
-        // TODO
+    public Iterator<K> keys() {
         return null;
     }
 
@@ -114,8 +104,7 @@ public class BinarySearchTree<K, V> implements DictionaryADT {
      * order of the values must match the order of the keys.
      * The iterator must be fail-fast.
      */
-    public Iterator values() {
-        // TODO
+    public Iterator<V> values() {
         return null;
     }
 }
