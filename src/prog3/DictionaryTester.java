@@ -27,6 +27,42 @@ public class DictionaryTester {
 
 
         //test the Hashtable first.  Load the table, and then search
+//        testOrderedArrayDict(DICTIONARY_SIZE, testArray);
+
+
+        //Testing the BinarySearchTree
+//        testBSTUnsorted(DICTIONARY_SIZE, testArray);
+
+
+        //Testing the Balanced Tree
+
+//        testRedBlack(DICTIONARY_SIZE, testArray);
+
+        ///////////////////////////////////////////////////////////
+
+
+        System.out.println("\nNow testing with ORDERED data...\n");
+
+        testArray = getOrderedStrings(DICTIONARY_SIZE);
+
+        //test the Hashtable first.  Load the table, and then search
+        testHashTable(DICTIONARY_SIZE, testArray);
+
+
+        //Testing the BinarySearchTree
+//        testBST(DICTIONARY_SIZE, testArray);
+
+
+        //Testing the Balanced Tree
+//        testRedBlack(DICTIONARY_SIZE, testArray);
+
+
+    }
+
+    private static void testOrderedArrayDict(int DICTIONARY_SIZE, String[] testArray) {
+        DictionaryADT<String, Integer> dictionary;
+        long start;
+        long stop;
         System.out.println("***************Testing the Hashtable...");
 
         dictionary = new OrderedArrayDictionary<String, Integer>(DICTIONARY_SIZE);
@@ -67,9 +103,12 @@ public class DictionaryTester {
         }
         stop = System.currentTimeMillis();
         System.out.println("TIME: " + (stop - start) + "\n");
+    }
 
-
-        //Testing the BinarySearchTree
+    private static void testBSTUnsorted(int DICTIONARY_SIZE, String[] testArray) {
+        DictionaryADT<String, Integer> dictionary;
+        long start;
+        long stop;
         System.out.println("***************Testing the Binary Search Tree...");
         dictionary = new BinarySearchTree<String, Integer>();
         for (int i = 0; i < DICTIONARY_SIZE; i++)
@@ -109,58 +148,12 @@ public class DictionaryTester {
         }
         stop = System.currentTimeMillis();
         System.out.println("TIME: " + (stop - start) + "\n");
+    }
 
-
-        //Testing the Balanced Tree
-
-        System.out.println("***************Testing the BalancedTree...");
-        dictionary = new RedBlackTree<String, Integer>();
-        for (int i = 0; i < DICTIONARY_SIZE; i++)
-            dictionary.add(testArray[i], new Integer(i));
-
-        System.out.println("Now performing " + (DICTIONARY_SIZE * 10) +
-                " searches.");
-        start = System.currentTimeMillis();
-        for (int i = 0; i < DICTIONARY_SIZE * 10; i++) {
-            int index = ((int) (DICTIONARY_SIZE * Math.random()));
-            Integer val = (Integer) dictionary.getValue(testArray[index]);
-            if (val == null)
-                throw new RuntimeException(
-                        "ERROR, key " + testArray[index] + " was not found");
-            if (val.intValue() != index)
-                throw new RuntimeException(
-                        "ERROR, wrong value returned, expected " + index +
-                                " but got " + val);
-        }
-        stop = System.currentTimeMillis();
-        System.out.println("TIME: " + (stop - start) + "\n");
-
-        System.out.println("Reverse lookups...");
-        System.out.println("Now performing " + (DICTIONARY_SIZE / 10) +
-                " searches.");
-        start = System.currentTimeMillis();
-        for (int i = 0; i < DICTIONARY_SIZE / 10; i++) {
-            int index = ((int) (DICTIONARY_SIZE * Math.random()));
-            String key = (String) dictionary.getKey(new Integer(index));
-            if (key == null)
-                throw new RuntimeException(
-                        "ERROR, key " + testArray[index] + " was not found");
-            if (!testArray[index].equals(key))
-                throw new RuntimeException(
-                        "ERROR, wrong key returned, expected " + testArray[index] +
-                                " but got " + key);
-        }
-        stop = System.currentTimeMillis();
-        System.out.println("TIME: " + (stop - start) + "\n");
-
-        ///////////////////////////////////////////////////////////
-
-
-        System.out.println("\nNow testing with ORDERED data...\n");
-
-        testArray = getOrderedStrings(DICTIONARY_SIZE);
-
-        //test the Hashtable first.  Load the table, and then search
+    private static void testHashTable(int DICTIONARY_SIZE, String[] testArray) {
+        DictionaryADT<String, Integer> dictionary;
+        long start;
+        long stop;
         System.out.println("***************Testing the Hashtable...");
 
         dictionary = new HashTable<String, Integer>(DICTIONARY_SIZE);
@@ -201,9 +194,12 @@ public class DictionaryTester {
         }
         stop = System.currentTimeMillis();
         System.out.println("TIME: " + (stop - start) + "\n");
+    }
 
-
-        //Testing the BinarySearchTree
+    private static void testBST(int DICTIONARY_SIZE, String[] testArray) {
+        DictionaryADT<String, Integer> dictionary;
+        long start;
+        long stop;
         System.out.println("***************Testing the Binary Search Tree...");
         dictionary = new BinarySearchTree<String, Integer>();
         for (int i = 0; i < DICTIONARY_SIZE; i++)
@@ -244,10 +240,12 @@ public class DictionaryTester {
         }
         stop = System.currentTimeMillis();
         System.out.println("TIME: " + (stop - start) + "\n");
+    }
 
-
-        //Testing the Balanced Tree
-
+    private static void testRedBlack(int DICTIONARY_SIZE, String[] testArray) {
+        DictionaryADT<String, Integer> dictionary;
+        long start;
+        long stop;
         System.out.println("***************Testing the BalancedTree...");
         dictionary = new RedBlackTree<String, Integer>();
         for (int i = 0; i < DICTIONARY_SIZE; i++)
@@ -287,8 +285,6 @@ public class DictionaryTester {
         }
         stop = System.currentTimeMillis();
         System.out.println("TIME: " + (stop - start) + "\n");
-
-
     }
 
 
