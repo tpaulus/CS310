@@ -174,9 +174,19 @@ public class UnorderedList<E extends Comparable<E>> implements Iterable<E> {
      */
     public E find(E obj) {
         Node<E> node = head;
-        while (node.next != null && node.data.compareTo(obj) != 0)
+        while (node != null && node.next != null && node.data.compareTo(obj) != 0)
             node = node.next;
-        return obj.compareTo(node.data) == 0 ? node.data : null;
+        return node != null && obj.compareTo(node.data) == 0 ? node.data : null;
+    }
+
+    /**
+     * Checks if a given element is in the List
+     *
+     * @param obj {@link E} Element to Find
+     * @return If the element is contained within the list
+     */
+    public boolean contains(E obj) {
+        return find(obj) != null;
     }
 
     public int size() {
