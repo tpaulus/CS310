@@ -71,8 +71,9 @@ public class HashTable<K extends Comparable<K>, V> implements DictionaryADT<K, V
      * @param key {@link K} Key to retrieve from Dictionary
      */
     public V getValue(K key) {
-        if (isEmpty()) return null;
-        return list[getHash(key)].find(new DictionaryNode<K, V>(key, null)).value;
+        if (isEmpty() || key == null) return null;
+        DictionaryNode<K, V> node = list[getHash(key)].find(new DictionaryNode<K, V>(key, null));
+        return node != null ? node.value : null;
     }
 
     /**
@@ -177,13 +178,11 @@ public class HashTable<K extends Comparable<K>, V> implements DictionaryADT<K, V
             int j = 0;
             modificationStamp = modCounter;
 
-            for (UnorderedList<DictionaryNode<K, V>> aList : list) {
-                for (DictionaryNode node : aList)
+            for (UnorderedList<DictionaryNode<K, V>> chain : list)
+                for (DictionaryNode node : chain)
                     //noinspection unchecked
                     nodes[j++] = node;
-                //noinspection unchecked
-                sort((E[]) nodes);
-            }
+            Quick.sort(nodes);
         }
 
         public boolean hasNext() {
@@ -197,27 +196,6 @@ public class HashTable<K extends Comparable<K>, V> implements DictionaryADT<K, V
 
         public void remove() {
             throw new UnsupportedOperationException();
-        }
-
-        private void sort(E[] array) {
-            E temp;
-            int in, out, h = 1;
-
-            while (h <= size / 3) // Calculate Gaps
-                h = h * 3 + 1;
-            while (h > 0) {
-                for (out = h; out < size; out++) {
-                    temp = array[out];
-                    in = out;
-                    //noinspection unchecked
-                    while (in > h - 1 && ((Comparable<E>) array[in - h]).compareTo(temp) >= 0) {
-                        array[in] = array[in - h];
-                        in -= h;
-                    }
-                    array[in] = temp;
-                }
-                h = (h - 1) / 3;
-            }
         }
     }
 
@@ -240,6 +218,57 @@ public class HashTable<K extends Comparable<K>, V> implements DictionaryADT<K, V
         public V next() {
             //noinspection unchecked
             return (V) nodes[index++].value;
+        }
+    }
+
+    static class Quick {
+        /**
+         * Rearranges the array in ascending order, using the natural order.
+         *
+         * @param a the array to be sorted
+         */
+        public static void sort(Comparable[] a) {
+            sort(a, 0, a.length - 1);
+        }
+
+        // quicksort the subarray, a[lo] to a[hi]
+        private static void sort(Comparable[] a, int lo, int hi) {
+            if (hi <= lo) return;
+            int j = partition(a, lo, hi);
+            sort(a, lo, j - 1);
+            sort(a, j + 1, hi);
+        }
+
+        // partition the subarray a[lo..hi] so that a[lo..j-1] <= a[j] <= a[j+1..hi]
+        // and return the index j.
+        @SuppressWarnings("unchecked")
+        private static int partition(Comparable[] a, int lo, int hi) {
+            int i = lo;
+            int j = hi + 1;
+            Comparable v = a[lo];
+            while (true) {
+                // find a lo to swap
+                while (a[++i].compareTo(v) < 0)
+                    if (i == hi) break;
+
+                // find a hi to swap
+                while (v.compareTo(a[--j]) < 0)
+                    if (j == lo) break;
+
+                // check for Completion (Pointer Collision/Crossover)
+                if (i >= j) break;
+                swap(a, i, j);
+            }
+
+            swap(a, lo, j);
+            return j;
+        }
+
+        // exchange a[i] and a[j]
+        private static void swap(Object[] a, int i, int j) {
+            Object swap = a[i];
+            a[i] = a[j];
+            a[j] = swap;
         }
     }
 }
