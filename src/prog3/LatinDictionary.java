@@ -16,28 +16,31 @@ public class LatinDictionary {
      * DictionaryADT object, not the datafile.
      */
     public LatinDictionary() {
-        // TODO
+        dictionary = new HashTable<>(8320);
     }
 
     /**
      * reads the key=value pairs from the datafile and builds a dictionary structure
      *
-     * @param fileName
+     * @param fileName {@link String} File to read in
      */
     public void loadDictionary(String fileName) {
-        // TODO
+        DictionaryEntry[] dictionaryEntries = DictionaryReader.getDictionaryArray(fileName);
+        for (DictionaryEntry entry : dictionaryEntries) {
+            if (entry == null || entry.getKey() == null || entry.getValue() == null) continue;
+            insertWord(entry.getKey(), entry.getValue());
+        }
     }
 
     /**
      * inserts a new Latin word and its definition
      *
-     * @param word
-     * @param definition
-     * @return
+     * @param word       {@link String} Word to Insert
+     * @param definition {@link} Matching Definition
+     * @return If insertion was successful
      */
     public boolean insertWord(String word, String definition) {
-        // TODO
-        return false;
+        return dictionary.add(word, definition);
     }
 
     /**
@@ -47,8 +50,7 @@ public class LatinDictionary {
      * @return
      */
     public boolean deleteWord(String word) {
-        // TODO
-        return false;
+        return dictionary.delete(word);
     }
 
     /**
@@ -58,8 +60,7 @@ public class LatinDictionary {
      * @return
      */
     public String getDefinition(String word) {
-        // TODO
-        return null;
+        return dictionary.getValue(word);
     }
 
     /**
@@ -69,8 +70,7 @@ public class LatinDictionary {
      * @return
      */
     public boolean containsWord(String word) {
-        // TODO
-        return false;
+        return dictionary.contains(word);
     }
 
     /**
@@ -83,8 +83,20 @@ public class LatinDictionary {
      * @return
      */
     public String[] getRange(String start, String finish) {
-        // TODO
-        return null;
+        Iterator<String> keyIter = words();
+        String[] keys = new String[dictionary.size()];
+        int i = 0;
+
+        while (keyIter.hasNext()) {
+            String next = keyIter.next();
+            if (start.compareTo(next) >= 0) continue;
+            if (next.compareTo(finish) >= 0) break;
+            keys[i++] = next;
+        }
+
+        String[] keysTrunk = new String[i];
+        System.arraycopy(keys, 0, keysTrunk, 0, i);
+        return keysTrunk.length > 0 ? keysTrunk : null;
     }
 
     /**
@@ -94,8 +106,7 @@ public class LatinDictionary {
      * @return
      */
     public Iterator<String> words() {
-        // TODO
-        return null;
+        return dictionary.keys();
     }
 
     /**
@@ -105,7 +116,6 @@ public class LatinDictionary {
      * @return
      */
     public Iterator<String> definitions() {
-        // TODO
-        return null;
+        return dictionary.values();
     }
 }   
