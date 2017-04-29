@@ -2,9 +2,6 @@ import java.util.Iterator;
 
 import data_structures.*;
 
-/**
- * TODO JDOC
- */
 public class LatinDictionary {
     private DictionaryADT<String, String> dictionary;
 
@@ -44,30 +41,30 @@ public class LatinDictionary {
     }
 
     /**
-     * removes the key value pair that is identified by the key from the dictionary
+     * Removes the key value pair that is identified by the key from the dictionary
      *
-     * @param word
-     * @return
+     * @param word {@link String} Word to remove from dictionary
+     * @return If the word was removed successfully
      */
     public boolean deleteWord(String word) {
         return dictionary.delete(word);
     }
 
     /**
-     * looks up the definition of the Latin word
+     * Looks up the definition of the Latin word
      *
-     * @param word
-     * @return
+     * @param word {@link String } Word to Locate in Dictionary
+     * @return {@link String} Matching Definition
      */
     public String getDefinition(String word) {
         return dictionary.getValue(word);
     }
 
     /**
-     * returns true if the Latin word is already in the dictionary
+     * Check if a word is contained within the dictionary.
      *
-     * @param word
-     * @return
+     * @param word {@link String} Word to Look For
+     * @return if the Latin word is already in the dictionary
      */
     public boolean containsWord(String word) {
         return dictionary.contains(word);
@@ -78,9 +75,9 @@ public class LatinDictionary {
      * inclusive, in sorted order. Neither value 'start' or 'finish' need be in the
      * dictionary.  Returns null if there are no keys in the range specified.
      *
-     * @param start
-     * @param finish
-     * @return
+     * @param start  {@link String} Lower Bound
+     * @param finish {@link String} Upper Bound
+     * @return All Keys within the given range
      */
     public String[] getRange(String start, String finish) {
         Iterator<String> keyIter = words();
@@ -103,7 +100,7 @@ public class LatinDictionary {
      * returns an Iterator of the latin words (the keys) in the dictionary,
      * in sorted order.
      *
-     * @return
+     * @return {@link Iterator} All words in the Dictionary, in alpha order
      */
     public Iterator<String> words() {
         return dictionary.keys();
@@ -112,8 +109,6 @@ public class LatinDictionary {
     /**
      * returns the definitions in the dictionary, in exactly the same order
      * as the words() Iterator
-     *
-     * @return
      */
     public Iterator<String> definitions() {
         return dictionary.values();
