@@ -36,7 +36,7 @@ public class DictionaryTester {
 
         //Testing the Balanced Tree
 
-//        testRedBlack(DICTIONARY_SIZE, testArray);
+        testRedBlack(DICTIONARY_SIZE, testArray);
 
         ///////////////////////////////////////////////////////////
 
@@ -54,7 +54,7 @@ public class DictionaryTester {
 
 
         //Testing the Balanced Tree
-//        testRedBlack(DICTIONARY_SIZE, testArray);
+        testRedBlack(DICTIONARY_SIZE, testArray);
 
 
     }

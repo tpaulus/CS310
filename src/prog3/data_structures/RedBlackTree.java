@@ -1,12 +1,20 @@
 package data_structures;
 
 import java.util.Iterator;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * @author Tom Paulus
  *         Created on 4/24/17.
  */
 public class RedBlackTree<K extends Comparable<K>, V> implements DictionaryADT<K, V> {
+    private final TreeMap<K, V> treeMap;
+
+    public RedBlackTree() {
+        treeMap = new TreeMap<>();
+    }
+
     /**
      * Returns true if the dictionary has an object identified by
      * key in it, otherwise false.
@@ -14,7 +22,7 @@ public class RedBlackTree<K extends Comparable<K>, V> implements DictionaryADT<K
      * @param key
      */
     public boolean contains(K key) {
-        return false;
+        return treeMap.containsKey(key);
     }
 
     /**
@@ -26,7 +34,7 @@ public class RedBlackTree<K extends Comparable<K>, V> implements DictionaryADT<K
      * @param value
      */
     public boolean add(K key, V value) {
-        return false;
+        return treeMap.put(key, value) != null;
     }
 
     /**
@@ -37,7 +45,7 @@ public class RedBlackTree<K extends Comparable<K>, V> implements DictionaryADT<K
      * @param key
      */
     public boolean delete(K key) {
-        return false;
+        return treeMap.remove(key) != null;
     }
 
     /**
@@ -47,7 +55,7 @@ public class RedBlackTree<K extends Comparable<K>, V> implements DictionaryADT<K
      * @param key
      */
     public V getValue(K key) {
-        return null;
+        return treeMap.get(key);
     }
 
     /**
@@ -59,6 +67,11 @@ public class RedBlackTree<K extends Comparable<K>, V> implements DictionaryADT<K
      * @param value
      */
     public K getKey(V value) {
+        for (Map.Entry<K, V> entry : treeMap.entrySet()) {
+            //noinspection unchecked
+            if (((Comparable<V>) entry.getValue()).compareTo(value) == 0)
+                return entry.getKey();
+        }
         return null;
     }
 
@@ -67,7 +80,7 @@ public class RedBlackTree<K extends Comparable<K>, V> implements DictionaryADT<K
      * in the dictionary
      */
     public int size() {
-        return 0;
+        return treeMap.size();
     }
 
     /**
@@ -81,14 +94,14 @@ public class RedBlackTree<K extends Comparable<K>, V> implements DictionaryADT<K
      * Returns true if the dictionary is empty
      */
     public boolean isEmpty() {
-        return false;
+        return treeMap.isEmpty();
     }
 
     /**
      * Returns the Dictionary object to an empty state.
      */
     public void clear() {
-
+        treeMap.clear();
     }
 
     /**
@@ -96,7 +109,7 @@ public class RedBlackTree<K extends Comparable<K>, V> implements DictionaryADT<K
      * sorted order. The iterator must be fail-fast.
      */
     public Iterator<K> keys() {
-        return null;
+        return (Iterator<K>) treeMap.keySet();
     }
 
     /**
