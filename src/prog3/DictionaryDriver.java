@@ -17,7 +17,7 @@ public class DictionaryDriver {
                 "vobis", "castanea", "agricola", "basilica", "consilium", "atavus", "vulgus",
                 "iuglans"};
         LatinDictionary dictionary = new LatinDictionary();
-        dictionary.loadDictionary("Latin.txt");
+        dictionary.loadDictionary("src/Latin.txt");
         String definition;
 
         for (String word : words) {
