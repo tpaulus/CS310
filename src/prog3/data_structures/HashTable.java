@@ -187,7 +187,7 @@ public class HashTable<K extends Comparable<K>, V> implements DictionaryADT<K, V
             nodes = shellSort(nodes);
         }
 
-        private DictionaryNode[] shellSort(DictionaryNode n[]) {
+        private DictionaryNode<K, V>[] shellSort(DictionaryNode n[]) {
 
             if (n.length < 2)
                 return n;
