@@ -182,7 +182,37 @@ public class HashTable<K extends Comparable<K>, V> implements DictionaryADT<K, V
                 for (DictionaryNode node : chain)
                     //noinspection unchecked
                     nodes[j++] = node;
-            Quick.sort(nodes);
+
+
+            nodes = shellSort(nodes);
+        }
+
+        private DictionaryNode[] shellSort(DictionaryNode n[]) {
+
+            if (n.length < 2)
+                return n;
+            int in, out, h = 1;
+            DictionaryNode temp;
+            int size = n.length;
+
+            while (h <= size / 3)
+                h = h * 3 + 1;
+            while (h > 0) {
+                for (out = h; out < size; out++) {
+                    temp = n[out];
+                    in = out;
+                    while (in > h - 1 &&
+                            ((Comparable) n[in - h]).compareTo(temp) >= 0) {
+                        n[in] = n[in - h];
+                        in -= h;
+                    }
+                    n[in] = temp;
+
+                } // end for
+                h = (h - 1) / 3;
+            } // end while
+
+            return n;
         }
 
         public boolean hasNext() {
@@ -218,57 +248,6 @@ public class HashTable<K extends Comparable<K>, V> implements DictionaryADT<K, V
         public V next() {
             //noinspection unchecked
             return (V) nodes[index++].value;
-        }
-    }
-
-    static class Quick {
-        /**
-         * Rearranges the array in ascending order, using the natural order.
-         *
-         * @param a the array to be sorted
-         */
-        public static void sort(Comparable[] a) {
-            sort(a, 0, a.length - 1);
-        }
-
-        // quicksort the subarray, a[lo] to a[hi]
-        private static void sort(Comparable[] a, int lo, int hi) {
-            if (hi <= lo) return;
-            int j = partition(a, lo, hi);
-            sort(a, lo, j - 1);
-            sort(a, j + 1, hi);
-        }
-
-        // partition the subarray a[lo..hi] so that a[lo..j-1] <= a[j] <= a[j+1..hi]
-        // and return the index j.
-        @SuppressWarnings("unchecked")
-        private static int partition(Comparable[] a, int lo, int hi) {
-            int i = lo;
-            int j = hi + 1;
-            Comparable v = a[lo];
-            while (true) {
-                // find a lo to swap
-                while (a[++i].compareTo(v) < 0)
-                    if (i == hi) break;
-
-                // find a hi to swap
-                while (v.compareTo(a[--j]) < 0)
-                    if (j == lo) break;
-
-                // check for Completion (Pointer Collision/Crossover)
-                if (i >= j) break;
-                swap(a, i, j);
-            }
-
-            swap(a, lo, j);
-            return j;
-        }
-
-        // exchange a[i] and a[j]
-        private static void swap(Object[] a, int i, int j) {
-            Object swap = a[i];
-            a[i] = a[j];
-            a[j] = swap;
         }
     }
 }
