@@ -27,7 +27,7 @@ public class DictionaryTester {
 
 
         //test the Hashtable first.  Load the table, and then search
-//        testOrderedArrayDict(DICTIONARY_SIZE, testArray);
+        testOrderedArrayDict(DICTIONARY_SIZE, testArray);
 
 
         //Testing the BinarySearchTree
