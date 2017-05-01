@@ -4,7 +4,7 @@ import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 
 /**
- * TODO JavaDoc
+ * An Chained Hash Map implementation of a Dictionary
  *
  * @author Tom Paulus
  *         Created on 4/24/17.
@@ -26,7 +26,7 @@ public class HashTable<K extends Comparable<K>, V> implements DictionaryADT<K, V
      * Returns true if the dictionary has an object identified by
      * key in it, otherwise false.
      *
-     * @param key
+     * @param key {@link K} Key to search for
      */
     public boolean contains(K key) {
         return !isEmpty() && list[getHash(key)].contains(new DictionaryNode<K, V>(key, null));
@@ -133,8 +133,7 @@ public class HashTable<K extends Comparable<K>, V> implements DictionaryADT<K, V
      * sorted order. The iterator must be fail-fast.
      */
     public Iterator<K> keys() {
-        // TODO This should Probably be Tested!
-        return new KeyIteratorHelper<>();
+        return new KeyIteratorHelper();
     }
 
     /**
@@ -143,8 +142,7 @@ public class HashTable<K extends Comparable<K>, V> implements DictionaryADT<K, V
      * The iterator must be fail-fast.
      */
     public Iterator<V> values() {
-        // TODO This should Probably be Tested!
-        return new ValueIteratorHelper<>();
+        return new ValueIteratorHelper();
     }
 
     private int getHash(K key) {
@@ -187,12 +185,12 @@ public class HashTable<K extends Comparable<K>, V> implements DictionaryADT<K, V
             nodes = shellSort(nodes);
         }
 
-        private DictionaryNode<K, V>[] shellSort(DictionaryNode n[]) {
+        private DictionaryNode<K, V>[] shellSort(DictionaryNode<K,V>[] n) {
 
             if (n.length < 2)
                 return n;
             int in, out, h = 1;
-            DictionaryNode temp;
+            DictionaryNode<K, V> temp;
             int size = n.length;
 
             while (h <= size / 3)
@@ -229,25 +227,23 @@ public class HashTable<K extends Comparable<K>, V> implements DictionaryADT<K, V
         }
     }
 
-    class KeyIteratorHelper<K> extends IteratorHelper<K> {
+    class KeyIteratorHelper extends IteratorHelper<K> {
         KeyIteratorHelper() {
             super();
         }
 
         public K next() {
-            //noinspection unchecked
-            return (K) nodes[index++].key;
+            return nodes[index++].key;
         }
     }
 
-    class ValueIteratorHelper<V> extends IteratorHelper<V> {
+    class ValueIteratorHelper extends IteratorHelper<V> {
         ValueIteratorHelper() {
             super();
         }
 
         public V next() {
-            //noinspection unchecked
-            return (V) nodes[index++].value;
+            return nodes[index++].value;
         }
     }
 }
