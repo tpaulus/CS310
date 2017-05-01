@@ -31,7 +31,7 @@ public class DictionaryTester {
 
 
         //Testing the BinarySearchTree
-//        testBSTUnsorted(DICTIONARY_SIZE, testArray);
+        testBSTUnsorted(DICTIONARY_SIZE, testArray);
 
 
         //Testing the Balanced Tree
@@ -50,7 +50,7 @@ public class DictionaryTester {
 
 
         //Testing the BinarySearchTree
-//        testBST(DICTIONARY_SIZE, testArray);
+        testBST(DICTIONARY_SIZE, testArray);
 
 
         //Testing the Balanced Tree
