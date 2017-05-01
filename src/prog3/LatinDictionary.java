@@ -14,6 +14,9 @@ public class LatinDictionary {
      */
     public LatinDictionary() {
         dictionary = new HashTable<>(8320);
+//        dictionary = new RedBlackTree<>();
+//        dictionary = new BinarySearchTree<>();
+//        dictionary = new OrderedArrayDictionary<>();
     }
 
     /**
