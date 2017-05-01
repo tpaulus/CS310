@@ -109,7 +109,7 @@ public class RedBlackTree<K extends Comparable<K>, V> implements DictionaryADT<K
      * sorted order. The iterator must be fail-fast.
      */
     public Iterator<K> keys() {
-        return (Iterator<K>) treeMap.keySet();
+        return treeMap.keySet().iterator();
     }
 
     /**
