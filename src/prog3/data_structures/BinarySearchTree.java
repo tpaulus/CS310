@@ -2,6 +2,7 @@ package data_structures;
 
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * @author Tom Paulus
@@ -279,12 +280,14 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements DictionaryA
 
     private class KeyIteratorHelper extends IteratorHelper<K> {
         public K next() {
+            if (!hasNext()) throw new NoSuchElementException();
             return nodes[index++].key;
         }
     }
 
     private class ValueIteratorHelper extends IteratorHelper<V> {
         public V next() {
+            if (!hasNext()) throw new NoSuchElementException();
             return nodes[index++].value;
         }
     }

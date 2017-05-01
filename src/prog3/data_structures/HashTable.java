@@ -2,6 +2,7 @@ package data_structures;
 
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * An Chained Hash Map implementation of a Dictionary
@@ -185,7 +186,7 @@ public class HashTable<K extends Comparable<K>, V> implements DictionaryADT<K, V
             nodes = shellSort(nodes);
         }
 
-        private DictionaryNode<K, V>[] shellSort(DictionaryNode<K,V>[] n) {
+        private DictionaryNode<K, V>[] shellSort(DictionaryNode<K, V>[] n) {
 
             if (n.length < 2)
                 return n;
@@ -233,6 +234,7 @@ public class HashTable<K extends Comparable<K>, V> implements DictionaryADT<K, V
         }
 
         public K next() {
+            if (!hasNext()) throw new NoSuchElementException();
             return nodes[index++].key;
         }
     }
@@ -243,6 +245,7 @@ public class HashTable<K extends Comparable<K>, V> implements DictionaryADT<K, V
         }
 
         public V next() {
+            if (!hasNext()) throw new NoSuchElementException();
             return nodes[index++].value;
         }
     }
